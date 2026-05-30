@@ -1,8 +1,8 @@
 import streamlit as st
-import requests
 import yfinance as yf
-import pandas as pd
 import plotly.graph_objects as go
+import pandas as pd
+from app.agent import analyze_stock
 
 st.set_page_config(
     page_title="ASX Intel",
@@ -81,24 +81,13 @@ if analyze_btn and ticker:
         st.subheader("🤖 AI Analysis")
         with st.spinner("Agent is analyzing... this may take 30-60 seconds."):
             try:
-                payload = {"ticker": ticker}
-                if question:
-                    payload["question"] = question
-
-                response = requests.post(
-                    "http://localhost:8001/analyze",
-                    json=payload,
-                    timeout=120
+                analysis = analyze_stock(
+                    ticker=ticker,
+                    question=question if question else None
                 )
-
-                if response.status_code == 200:
-                    analysis = response.json()["analysis"]
-                    st.markdown(analysis)
-                else:
-                    st.error(f"API error: {response.status_code}")
-
+                st.markdown(analysis)
             except Exception as e:
-                st.error(f"Failed to connect to API: {e}")
+                st.error(f"Analysis failed: {e}")
 
 elif analyze_btn and not ticker:
     st.warning("Please enter an ASX ticker.")
