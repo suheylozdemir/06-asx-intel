@@ -2,7 +2,7 @@
 
 AI-powered Australian stock market analysis agent. Enter any ASX ticker and get a comprehensive analysis powered by real-time data and large language models.
 
-🚀 **[Live Demo](#)** ← updated after Streamlit Cloud deploy
+🚀 **[Live Demo](https://06-asx-intel-nbdaqixd5fmw2kav9htogk.streamlit.app/)**
 
 ---
 
